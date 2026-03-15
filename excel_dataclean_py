@@ -33,9 +33,11 @@ df["Marks"] = df["Marks"].fillna(df["Marks"].mean())
 df["Age"]   = df["Age"].fillna(df["Age"].mean())
 df["Grade"] = df["Grade"].fillna("Unknown")
 
-# --- drop_duplicates AFTER cleaning ---
-df = df.drop_duplicates(subset=["Name", "Age", "Gender"], keep="first")
-df = df.reset_index(drop=True)
 
+# Drop duplicates based on all columns
+df = df.drop_duplicates(subset=["Name", "Age", "Grade"], keep="first")
+df = df.reset_index(drop=True)
+df["Age"] = df["Age"].astype(int)
+df["Marks"] = df["Marks"].astype(int)
 df.to_excel("clean_students.xlsx", index=False)
 print(df)

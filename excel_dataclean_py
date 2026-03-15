@@ -1,0 +1,41 @@
+import pandas as pd
+
+df = pd.read_excel("practice.csv.xlsx")
+
+# --- Clean first ---
+if "marks" in df.columns:
+    df = df.drop(columns=["marks"])
+
+df["Name"] = df["Name"].str.strip().str.title()
+df["City"] = df["City"].str.strip().str.title()
+
+df["City"] = df["City"].replace({
+    "،Karachi": "Karachi",
+    "Isb":      "Islamabad",
+    "Lnhore":   "Lahore",
+})
+
+df["Gender"] = df["Gender"].str.strip()
+df["Gender"] = df["Gender"].replace({
+    "Male": "M", "male": "M", "m": "M",
+    "F": "F",    "f":    "F",
+})
+df["Gender"] = df["Gender"].str.upper()
+
+df["Grade"] = df["Grade"].str.strip()
+df["Grade"] = df["Grade"].replace({
+    "12 th":    "12th",
+    "Grade 12": "12th",
+    "tenth":    "10th",
+})
+
+df["Marks"] = df["Marks"].fillna(df["Marks"].mean())
+df["Age"]   = df["Age"].fillna(df["Age"].mean())
+df["Grade"] = df["Grade"].fillna("Unknown")
+
+# --- drop_duplicates AFTER cleaning ---
+df = df.drop_duplicates(subset=["Name", "Age", "Gender"], keep="first")
+df = df.reset_index(drop=True)
+
+df.to_excel("clean_students.xlsx", index=False)
+print(df)

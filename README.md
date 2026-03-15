@@ -39,3 +39,13 @@ python clean_excel.py
 Freelance Python Developer | Microsoft Certified
 I build custom Python automation scripts for businesses.
 Available for freelance work on Fiverr.
+## Before and After
+
+### Before (Messy Data)
+![Before](Screenshot 2026-03-15 224623.png)
+
+### After (Clean Data)
+![After](Screenshot 2026-03-15 230621.png)
+
+### Code
+![Code](Screenshot 2026-03-15 230601.png)
